@@ -1,17 +1,18 @@
 import os
 import openai
 from dotenv import load_dotenv
-from pprint import pprint
 
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
-completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Hello!"},
-    ],
-)
+def send_message_to_openai(message):
+    load_dotenv()
+    openai.api_key = os.getenv("OPENAI_API_KEY")
 
-pprint(vars(completion))
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": message},
+        ],
+    )
+
+    return completion.choices[0].message["content"]
