@@ -1,4 +1,4 @@
-from argparser import parse_arguments
+from parser import parse_arguments
 from chat import send_message_to_openai
 from executor import execute_command
 from security import is_command_approved
