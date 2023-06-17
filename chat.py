@@ -15,4 +15,8 @@ def send_message_to_openai(message):
         ],
     )
 
-    return completion.choices[0].message["content"]
+    response = completion.choices[0].message["content"]
+
+    print("Reponse", response)
+
+    return response
