@@ -28,6 +28,13 @@ def create_prompt(user_desire):
     "{delimiter}ls{delimiter}"
     """
 
+    # Final reminder:
+    base_prompt += f"""
+    Please remember: From this point onwards, any message you send will have the first occurance of a {delimiter}command{delimiter} executed (after passing security checks. Keep this in mind and only send one command at a time and then await the response (which will be the terminal output).
+
+    Note: Only the first command you send will be processed. All other content of your message will not be processed, therefore please only send commands and if you want to send additional explanations please do so with comments (#) wihtin the command itself.
+    """
+
     prompt = base_prompt.format(user_desire)
     print("Prompt: ", prompt)
 

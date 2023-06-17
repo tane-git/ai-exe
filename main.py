@@ -13,13 +13,21 @@ def prompting_loop(prompt, depth=0):
 
     command = extract_command(response)
 
-    if is_command_approved(command):
+    if command == None:
+        prompt == "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
+        prompting_loop(prompt, depth)
+
+    # if is_command_approved(command):
+    if True:
         stdout, stderr = execute_command(command)
 
+        print(f"stdout: {stdout}")
+
         # output is treated as a response from the user
-        if depth < 5:
+        if depth < 10:
             prompting_loop(stdout, depth)
         else:
+            print("depth met")
             return
 
         if stderr:

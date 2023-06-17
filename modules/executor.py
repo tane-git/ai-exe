@@ -9,4 +9,11 @@ def execute_command(command):
     )
     stdout, stderr = process.communicate()
 
-    return stdout.decode("utf-8"), stderr.decode("utf-8")
+    stdout = stdout.decode("utf-8")
+    stderr = stderr.decode("utf-8")
+
+    if stdout == "":
+        print("stdout is None")
+        stdout = "Message from AI-exector: Your command was executed successfully but did not contain any output. Please continue sending commands."
+
+    return stdout, stderr
