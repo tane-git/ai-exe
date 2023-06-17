@@ -1,5 +1,6 @@
 import argparse
 from chat import send_message_to_openai
+from executor import execute_command
 
 
 def parse_arguments():
@@ -14,5 +15,10 @@ def parse_arguments():
 
 if __name__ == "__main__":
     user_desire = parse_arguments()
-    response = send_message_to_openai(user_desire)
-    print(f"OpenAI's response: {response}")
+    command = send_message_to_openai(user_desire)
+    print(command)
+    test = "ls"
+    stdout, stderr = execute_command(test)
+    print(f"Command output: {stdout}")
+    if stderr:
+        print(f"Command errors: {stderr}")
