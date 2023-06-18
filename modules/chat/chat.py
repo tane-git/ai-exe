@@ -1,27 +1,26 @@
 import os
 import openai
 from dotenv import load_dotenv
+from modules.template import get_system_content
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-conversation = []
+messages = [
+    {"role": "system", "content": get_system_content()},
+]
 
 
 def send(message):
-    conversation.append({"role": "user", "content": message})
+    messages.append({"role": "user", "content": message})
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        # messages=[
-        #     {"role": "system", "content": "You are a helpful assistant."},
-        #     {"role": "user", "content": message},
-        # ],
-        messages=conversation,
+        messages=messages,
     )
 
     response = completion.choices[0].message["content"]
 
-    conversation.append({"role": "system", "content": response})
+    messages.append({"role": "system", "content": response})
 
     return response

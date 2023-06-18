@@ -49,8 +49,7 @@ def prompting_loop(message, depth=0):
 
 if __name__ == "__main__":
     args = parse_arguments()
-    user_desire = args.desire
 
-    prompt = create_prompt(user_desire)
+    prompt = create_prompt(args.desire, args.system)
 
     prompting_loop(prompt)
