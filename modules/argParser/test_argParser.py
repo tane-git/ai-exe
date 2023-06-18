@@ -1,7 +1,7 @@
 import sys
-import pytest
 import io
 import argparse
+import pytest
 from unittest import mock
 
 from modules.argParser import parse_arguments
@@ -12,9 +12,11 @@ def test_parse_arguments():
 
     with mock.patch(
         "argparse.ArgumentParser.parse_args",
-        return_value=argparse.Namespace(desire=test_arg),
+        return_value=argparse.Namespace(desire=test_arg, pause=False),
     ):
-        assert parse_arguments() == test_arg
+        args = parse_arguments()
+        assert args.desire == test_arg
+        assert not args.pause
 
 
 def test_unexpected_argument():
@@ -44,3 +46,17 @@ def test_help_message():
 
     assert "AI Executor that runs high-level commands." in help_message
     assert "The high-level desire to be executed" in help_message
+
+
+def test_parse_arguments_desire():
+    sys.argv = ["argParser.py", "my_desire"]
+    args = parse_arguments()
+    assert args.desire == "my_desire"
+    assert not args.pause
+
+
+def test_parse_arguments_pause():
+    sys.argv = ["argParser.py", "--pause", "my_desire"]
+    args = parse_arguments()
+    assert args.desire == "my_desire"
+    assert args.pause
