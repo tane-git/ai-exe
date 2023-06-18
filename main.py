@@ -19,8 +19,12 @@ args = None
 def communicate(command):
     print(emojize("command: "), Fore.RED + command, end="")
     if args.pause:
-        print(emojize(":pause_button:"))
-        input()
+        print(emojize(" :pause_button: "), end="")
+        print("(press 'enter' to continue or type 'off' to disable pause mode)")
+        users_input = input()
+
+        if users_input == "off":
+            args.pause = False
     else:
         print()
 
