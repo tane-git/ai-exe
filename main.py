@@ -26,8 +26,8 @@ def prompting_loop(message, depth=0):
     if True:
         stdout, stderr = execute_command(command)
 
-        if not stdout and not stderr:
-            stdout = "Message from AI-exector: Your command was executed successfully but did not contain any output. Please continue sending commands."
+        if stdout == "" and stderr == "":
+            stdout = f"Message from AI-exector: Your command ({command}) was executed successfully but did not contain any output. Please continue sending commands."
 
         # output is treated as a response from the user
         if depth < 10:
