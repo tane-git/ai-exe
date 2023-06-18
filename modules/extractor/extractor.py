@@ -8,6 +8,6 @@ def extract_command(response):
 
     command = match.group(1) if match else None
 
-    print(f"command: {delimiter}{command}{delimiter}")
+    # print(f"command: {delimiter}{command}{delimiter}")
 
     return command

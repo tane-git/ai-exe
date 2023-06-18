@@ -1,5 +1,5 @@
 from unittest import mock
-from modules.chat import send_message_to_openai
+from modules.chat import send
 
 
 def test_send_message_to_openai():
@@ -13,6 +13,6 @@ def test_send_message_to_openai():
     mock_response.configure_mock(**{"choices": mock_choices})
 
     with mock.patch("openai.ChatCompletion.create", return_value=mock_response):
-        response = send_message_to_openai("Test message")
+        response = send("Test message")
 
     assert response == "Mock response"

@@ -8,7 +8,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 conversation = []
 
 
-def send_message_to_openai(message):
+def send(message):
     conversation.append({"role": "user", "content": message})
 
     completion = openai.ChatCompletion.create(
@@ -24,6 +24,6 @@ def send_message_to_openai(message):
 
     conversation.append({"role": "system", "content": response})
 
-    print("Reponse", response)
+    # print("Reponse", response)
 
     return response

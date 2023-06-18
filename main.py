@@ -1,27 +1,32 @@
 from modules.argParser import parse_arguments
 from modules.template.template import create_prompt
-from modules.chat import send_message_to_openai
+from modules.chat import send
 from modules.executor import execute_command
 from modules.security import is_command_approved
 from modules.extractor import extract_command
 
 
-def prompting_loop(prompt, depth=0):
+def prompting_loop(message, depth=0):
     depth = depth + 1
 
-    response = send_message_to_openai(prompt)
+    if depth > 1:
+        print(f"message: {message}")
+
+    response = send(message)
 
     command = extract_command(response)
+    print(f"command: {message}")
 
     if command == None:
-        prompt == "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
-        prompting_loop(prompt, depth)
+        message == "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
+        prompting_loop(message, depth)
 
     # if is_command_approved(command):
     if True:
         stdout, stderr = execute_command(command)
 
-        print(f"stdout: {stdout}")
+        if stdout == None:
+            stdout = "Message from AI-exector: Your command was executed successfully but did not contain any output. Please continue sending commands."
 
         # output is treated as a response from the user
         if depth < 10:
