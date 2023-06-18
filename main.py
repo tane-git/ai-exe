@@ -13,6 +13,7 @@ def prompting_loop(message, depth=0):
         print("message: ", message)
 
     response = send(message)
+    print("response: ", response)
 
     command = extract_command(response)
     print("command: ", command)
