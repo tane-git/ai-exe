@@ -20,3 +20,11 @@ def test_extract_command_multiple_commands():
     )
     command = extract_command(response)
     assert command == "ls"  # Should only return the first command
+
+
+def test_extract_command_special_char():
+    delimiter = "$"
+    response = f"Your command should be: {delimiter}ls{delimiter}"
+
+    command = extract_command(response, delimiter)
+    assert command == "ls"
