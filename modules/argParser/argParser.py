@@ -11,5 +11,4 @@ def parse_arguments():
     args = parser.parse_args()
     desire = args.desire
 
-    print("User's desire: ", desire)
     return desire

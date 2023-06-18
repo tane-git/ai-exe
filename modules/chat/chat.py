@@ -24,6 +24,4 @@ def send(message):
 
     conversation.append({"role": "system", "content": response})
 
-    # print("Reponse", response)
-
     return response

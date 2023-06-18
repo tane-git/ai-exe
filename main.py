@@ -10,12 +10,12 @@ def prompting_loop(message, depth=0):
     depth = depth + 1
 
     if depth > 1:
-        print(f"message: {message}")
+        print("message: ", message)
 
     response = send(message)
 
     command = extract_command(response)
-    print(f"command: {message}")
+    print("command: ", command)
 
     if command == None:
         message == "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
