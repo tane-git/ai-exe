@@ -5,6 +5,8 @@ from modules.executor import execute_command
 from modules.security import is_command_approved
 from modules.extractor import extract_command
 
+args = None
+
 
 def prompting_loop(message, depth=0):
     depth = depth + 1
@@ -24,6 +26,10 @@ def prompting_loop(message, depth=0):
 
     # if is_command_approved(command):
     if True:
+        if args.pause:
+            print(f"About to execute command: {command}. Press Enter to continue.")
+            input()
+
         stdout, stderr = execute_command(command)
 
         if stdout == "" and stderr == "":
