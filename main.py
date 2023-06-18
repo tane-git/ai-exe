@@ -4,29 +4,10 @@ from modules.chat import send
 from modules.executor import execute_command
 from modules.security import is_command_approved
 from modules.extractor import extract_command
-
-# Styles
-from colorama import init, Fore, Back, Style
-from emoji import emojize
-
-# Initialize colorama
-init(autoreset=True)
-
+from modules.pause import maybePause
+from config import COMMAND_DELIMITER as delimiter
 
 args = None
-
-
-def communicate(command):
-    print(emojize("command: "), Fore.RED + command, end="")
-    if args.pause:
-        print(emojize(" :pause_button: "), end="")
-        print("(press 'enter' to continue or type 'off' to disable pause mode)")
-        users_input = input()
-
-        if users_input == "off":
-            args.pause = False
-    else:
-        print()
 
 
 def prompting_loop(message, depth=0):
@@ -41,21 +22,21 @@ def prompting_loop(message, depth=0):
     command = extract_command(response)
 
     if command == None:
-        message = "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
+        message = f"Message from AI-exector: Your message did not include a {delimiter}command{delimiter}. Please remember that I only process commands. Thank You!"
         prompting_loop(message, depth)
 
     # if is_command_approved(command):
     if True:
-        communicate(command)
+        maybePause(command, args.pause)
 
         stdout, stderr = execute_command(command)
 
-        if stdout == "" and stderr == "":
-            stdout = f"Message from AI-exector: Your command ({command}) was executed successfully but did not contain any output. Please continue sending commands."
+        if stderr == "":
+            nextMessage = f"Message from AI-exector: Your command ({command}) was executed successfully. Here is the output: '{stdout}'"
 
         # output is treated as a response from the user
         if depth < 10:
-            prompting_loop(stdout, depth)
+            prompting_loop(nextMessage, depth)
         else:
             print("depth met")
             return
