@@ -2,12 +2,17 @@ import subprocess
 
 
 def execute_command(command):
-    process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    )
-    stdout, stderr = process.communicate()
+    try:
+        proc = subprocess.run(
+            command,
+            shell=True,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
 
-    stdout = stdout.decode("utf-8")
-    stderr = stderr.decode("utf-8")
+        return proc.stdout.strip(), proc.stderr.strip()
 
-    return stdout, stderr
+    except subprocess.CalledProcessError as e:
+        return e.stdout.strip(), e.stderr.strip()

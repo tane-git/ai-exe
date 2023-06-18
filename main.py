@@ -19,14 +19,14 @@ def prompting_loop(message, depth=0):
     print("command: ", command)
 
     if command == None:
-        message == "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
+        message = "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
         prompting_loop(message, depth)
 
     # if is_command_approved(command):
     if True:
         stdout, stderr = execute_command(command)
 
-        if stdout == None:
+        if not stdout and not stderr:
             stdout = "Message from AI-exector: Your command was executed successfully but did not contain any output. Please continue sending commands."
 
         # output is treated as a response from the user
