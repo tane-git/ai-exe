@@ -5,7 +5,24 @@ from modules.executor import execute_command
 from modules.security import is_command_approved
 from modules.extractor import extract_command
 
+# Styles
+from colorama import init, Fore, Back, Style
+from emoji import emojize
+
+# Initialize colorama
+init(autoreset=True)
+
+
 args = None
+
+
+def communicate(command):
+    print(emojize("command: "), Fore.RED + command, end="")
+    if args.pause:
+        print(emojize(":pause_button:"))
+        input()
+    else:
+        print()
 
 
 def prompting_loop(message, depth=0):
@@ -18,7 +35,6 @@ def prompting_loop(message, depth=0):
     print("response: ", response)
 
     command = extract_command(response)
-    print("command: ", command)
 
     if command == None:
         message = "Message from AI-exector: Your message did not include a command. Please remember that only commands will be processed."
@@ -26,9 +42,7 @@ def prompting_loop(message, depth=0):
 
     # if is_command_approved(command):
     if True:
-        if args.pause:
-            print(f"About to execute command: {command}. Press Enter to continue.")
-            input()
+        communicate(command)
 
         stdout, stderr = execute_command(command)
 
