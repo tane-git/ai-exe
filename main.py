@@ -33,6 +33,8 @@ def prompting_loop(message, depth=0):
 
         if stderr == "":
             nextMessage = f"Message from AI-exector: Your command ({command}) was executed successfully. Here is the output: '{stdout}'"
+        else:
+            nextMessage = f"Message from AI-exector: Your command ({command}) was executed but there was an error. Here is the output: '{stdout}' and here is the error: '{stderr}'"
 
         # output is treated as a response from the user
         if depth < 10:
@@ -41,8 +43,6 @@ def prompting_loop(message, depth=0):
             print("depth met")
             return
 
-        if stderr:
-            print(f"Command errors: {stderr}")
     else:
         print(f"Command {response} is not approved for execution.")
 
