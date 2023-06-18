@@ -36,6 +36,5 @@ def create_prompt(user_desire):
     """
 
     prompt = base_prompt.format(user_desire)
-    print("Prompt: ", prompt)
 
     return prompt
