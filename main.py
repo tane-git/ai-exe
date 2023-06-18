@@ -22,7 +22,7 @@ def prompting_loop(message, depth=0):
     command = extract_command(response)
 
     if command == None:
-        message = f"Message from AI-exector: Your message did not include a {delimiter}command{delimiter}. Please remember that I only process commands. Thank You!"
+        message = f"Message from AI-exector: Your message did not include a {delimiter}command{delimiter}. Please remember that I only process commands and they must be formatted properly ({delimiter}command{delimiter}). Thank You!"
         prompting_loop(message, depth)
 
     # if is_command_approved(command):
